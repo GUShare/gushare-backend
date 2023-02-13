@@ -1,0 +1,34 @@
+[tool.poetry]
+name = "gushare-backend"
+version = "0.1.0"
+description = "The backend application for the GUShare project."
+authors = ["Christian Grossmüller", "Sören Grieger"]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+psycopg2-binary = "*"
+django = "*"
+gunicorn = "*"
+django-environ = "*"
+gevent = "*"
+whitenoise = "*"
+raven = "*"
+djangorestframework = "*"
+
+[tool.poetry.dev-dependencies]
+pytest = "*"
+werkzeug = "*"
+django-debug-toolbar = "*"
+ipdb = "*"
+pytest-django = "*"
+django-extensions = "*"
+pytest-isort = "*"
+pytest-sugar = "*"
+coverage = "*"
+django-coverage-plugin = "*"
+pytest-cov = "*"
+codecov = "*"
+
+[build-system]
+# Should be the same as `$POETRY_VERSION`:
+requires = ["poetry>=1.2.0"]
