@@ -68,3 +68,17 @@ class Workplace(models.Model):
     maintenance_availebility = models.BooleanField(default=True)
     maintenance_status = models.TextField(max_length=250)
     notification = models.TextField(max_length=500)
+
+
+class Booking(models.Model):
+
+    id = models.UUIDField(
+        primary_key=True, default=uuid.uuid4, editable=False, unique=True
+    )
+    workplace = models.ManyToManyField(to=Workplace)
+    # users
+    started = models.DateTimeField()
+    stopped = models.DateTimeField()
+    email_others = ArrayField(base_field=models.CharField(max_length=250))
+    confirmed_at = models.DateTimeField(null=True, blank=True)
+    note = models.TextField(max_length=500)
