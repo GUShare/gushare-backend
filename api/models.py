@@ -54,7 +54,9 @@ class Workplace(models.Model):
         ("2", "Dual Screen"),
         ("3", "Fax"),
         ("4", "USB-C Docking-station"),
-        ("2", "electric adjustable desk")
+        ("5", "Electric adjustable desk"),
+        ("6", "Printer"),
+        ("7", "Telephone")
     )
 
     id = models.UUIDField(
