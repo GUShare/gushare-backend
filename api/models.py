@@ -46,3 +46,23 @@ class Room(models.Model):
     maintenance_availebility = models.BooleanField(default=True)
     maintenance_status = models.TextField(max_length=250)
     # todo: permissions
+
+
+class Workplace(models.Model):
+    EQUIPMENT_CHOICES = (
+        ("1", "Phone"),
+        ("2", "Dual Screen"),
+        ("3", "Fax"),
+        ("4", "USB-C Docking-station"),
+        ("2", "electric adjustable desk")
+    )
+
+    id = models.UUIDField(
+        primary_key=True, default=uuid.uuid4, editable=False, unique=True
+    )
+    room = models.ForeignKey(to=Room, related_name="workplaces", on_delete=models.CASCADE)
+    in_room_id = models.IntegerField()
+    equipment = ArrayField(base_field=models.CharField(choices=EQUIPMENT_CHOICES, max_length=3))
+    maintenance_availebility = models.BooleanField(default=True)
+    maintenance_status = models.TextField(max_length=250)
+    notification = models.TextField(max_length=500)
