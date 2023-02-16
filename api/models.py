@@ -98,7 +98,7 @@ class Booking(models.Model):
     id = models.UUIDField(
         primary_key=True, default=uuid.uuid4, editable=False, unique=True
     )
-    workplace = models.ManyToManyField(to=Workplace)
+    workplaces = models.ManyToManyField(to=Workplace)
     # users
     started = models.DateTimeField()
     stopped = models.DateTimeField()
