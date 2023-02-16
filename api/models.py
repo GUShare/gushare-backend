@@ -25,3 +25,24 @@ class Building(models.Model):
     map = models.ImageField()
     maximum_attendee_capacity = models.IntegerField()
     amenity_feature = ArrayField(base_field=models.CharField(choices=AMENITY_CHOICES, max_length=3))
+
+
+class Room(models.Model):
+    ROOMTYPE_CHOICES = (
+        ("1", "CoWorking"),
+        ("2", "Meeting")
+    )
+
+    id = models.UUIDField(
+        primary_key=True, default=uuid.uuid4, editable=False, unique=True
+    )
+    building = models.ForeignKey(to=Building, related_name="rooms", on_delete=models.CASCADE)
+    name = models.CharField(max_length=128)
+    alternate_name = models.CharField(max_length=128)
+    description = models.TextField(max_length=500)
+    photo = models.ImageField()
+    room_location = models.ImageField()
+    room_type = ArrayField(base_field=models.CharField(choices=ROOMTYPE_CHOICES, max_length=3))
+    maintenance_availebility = models.BooleanField(default=True)
+    maintenance_status = models.TextField(max_length=250)
+    # todo: permissions
