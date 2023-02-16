@@ -124,3 +124,5 @@ STATICFILES_FINDERS = (
 # Locale
 LANGUAGES = [("de", _("German")), ("en", _("English"))]
 LOCALE_PATHS = [str(ROOT_DIR("locale"))]
+
+AUTH_USER_MODEL = "api.User"
