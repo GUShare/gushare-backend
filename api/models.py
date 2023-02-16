@@ -1,8 +1,30 @@
 import uuid
+
+from django.contrib.auth.models import AbstractUser
 from django.contrib.postgres.fields import ArrayField
 from location_field.models.plain import PlainLocationField
 
 from django.db import models
+
+
+class User(AbstractUser):
+
+    LANGUAGE_CHOICES = (("de", "Deutsch"), ("en", "English"))
+    id = models.UUIDField(
+        primary_key=True, default=uuid.uuid4, editable=False, unique=True
+    )
+    username = models.CharField(max_length=151, blank=True)
+    email = models.EmailField(unique=True)
+    first_name = models.CharField(max_length=50)  # Firstname is required
+    last_name = models.CharField(max_length=100)  # Lastname is required
+    language = models.CharField(choices=LANGUAGE_CHOICES, default="de", max_length=2)
+    date_joined = models.DateTimeField(auto_now_add=True)
+    modified_at = models.DateTimeField(auto_now=True)
+    dsgvo_accepted = models.BooleanField(default=False)
+    onboarding_passed = models.BooleanField(default=False)
+
+    USERNAME_FIELD = "email"
+    REQUIRED_FIELDS = ["first_name", "last_name"]
 
 
 class Building(models.Model):
@@ -63,6 +85,7 @@ class Workplace(models.Model):
         primary_key=True, default=uuid.uuid4, editable=False, unique=True
     )
     room = models.ForeignKey(to=Room, related_name="workplaces", on_delete=models.CASCADE)
+    favorite_workplace = models.ManyToManyField(to=User)
     in_room_id = models.IntegerField()
     equipment = ArrayField(base_field=models.CharField(choices=EQUIPMENT_CHOICES, max_length=3))
     maintenance_availebility = models.BooleanField(default=True)
