@@ -14,6 +14,8 @@ gevent = "*"
 whitenoise = "*"
 raven = "*"
 djangorestframework = "*"
+Pillow = "^9.4.0"
+django-location-field = "^2.1.0"
 
 [tool.poetry.dev-dependencies]
 pytest = "*"
