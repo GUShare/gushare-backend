@@ -37,7 +37,6 @@ class BuildingAdmin(admin.ModelAdmin):
         "telephone",
         "opening_hours",
         "address",
-        "geo",
         "map",
         "maximum_attendee_capacity",
         "amenity_feature",
