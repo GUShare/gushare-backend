@@ -30,7 +30,8 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'django.contrib.staticfiles'
+    'django.contrib.staticfiles',
+    'location_field.apps.DefaultConfig',
     ]
 
 MIDDLEWARE = [
@@ -125,4 +126,11 @@ STATICFILES_FINDERS = (
 LANGUAGES = [("de", _("German")), ("en", _("English"))]
 LOCALE_PATHS = [str(ROOT_DIR("locale"))]
 
+# User Model
 AUTH_USER_MODEL = "api.User"
+
+# Location
+LOCATION_FIELD = {
+    # OpenStreetMap
+    'provider.openstreetmap.max_zoom': 18,
+}

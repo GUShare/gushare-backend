@@ -115,7 +115,7 @@ class Building(models.Model):
     telephone = models.CharField(max_length=50)
     opening_hours = models.TextField()
     address = models.CharField(max_length=255)
-    geo = PlainLocationField(based_fields=['city'], default=None)
+    geo = PlainLocationField(zoom=7, default=None, null=True, blank=True)
     map = models.ImageField()
     maximum_attendee_capacity = models.IntegerField()
     amenity_feature = ArrayField(base_field=models.CharField(choices=AMENITY_CHOICES, max_length=3))
