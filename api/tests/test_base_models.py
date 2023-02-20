@@ -464,3 +464,85 @@ class TestWorkplaceFields:
     def test_field_conf_room(self, workplace_model_class, room_model_class):
         field = workplace_model_class._meta.get_field("room")
         assert issubclass(field.remote_field.model, room_model_class)
+
+
+class TestBookingFields:
+    """
+    This Testsuit summerizes the basic field tests:
+    1. Do all fields exist
+    2. Do all fields have the correct format/class instance
+    """
+
+    def test_model_has_id_field(self, booking_model_class):
+        assert hasattr(booking_model_class, "id")
+
+    def test_model_has_workplaces(self, booking_model_class):
+        assert hasattr(booking_model_class, "workplaces")
+
+    def test_model_has_user(self, booking_model_class):
+        assert hasattr(booking_model_class, "user")
+
+    def test_model_has_started(self, booking_model_class):
+        assert hasattr(booking_model_class, "started")
+
+    def test_model_has_stopped(self, booking_model_class):
+        assert hasattr(booking_model_class, "stopped")
+
+    def test_model_has_email_others(self, booking_model_class):
+        assert hasattr(booking_model_class, "email_others")
+
+    def test_model_has_confirmed_at(self, booking_model_class):
+        assert hasattr(booking_model_class, "confirmed_at")
+
+    def test_model_has_note(self, booking_model_class):
+        assert hasattr(booking_model_class, "note")
+
+    def test_field_type_id(self, booking_model_class):
+        assert isinstance(booking_model_class._meta.get_field("id"), models.UUIDField)
+
+    def test_field_type_workplaces(self, booking_model_class):
+        assert isinstance(
+            booking_model_class._meta.get_field("workplaces"), models.ManyToManyField
+        )
+
+    def test_field_type_user(self, booking_model_class):
+        assert isinstance(
+            booking_model_class._meta.get_field("user"), models.ForeignKey
+        )
+
+    def test_field_type_started(self, booking_model_class):
+        assert isinstance(
+            booking_model_class._meta.get_field("started"), models.DateTimeField
+        )
+
+    def test_field_type_stopped(self, booking_model_class):
+        assert isinstance(
+            booking_model_class._meta.get_field("stopped"), models.DateTimeField
+        )
+
+    def test_field_type_email_others(self, booking_model_class):
+        assert isinstance(
+            booking_model_class._meta.get_field("email_others"), ArrayField
+        )
+
+    def test_field_type_confirmed_at(self, booking_model_class):
+        assert isinstance(
+            booking_model_class._meta.get_field("confirmed_at"), models.DateTimeField
+        )
+
+    def test_field_type_note(self, booking_model_class):
+        assert isinstance(booking_model_class._meta.get_field("note"), models.TextField)
+
+    def test_field_conf_id(self, booking_model_class):
+        field = booking_model_class._meta.get_field("id")
+        assert field.primary_key
+        assert field.default == uuid.uuid4
+        assert not field.editable
+
+    def test_field_conf_workplace(self, booking_model_class, workplace_model_class):
+        field = booking_model_class._meta.get_field("workplaces")
+        assert issubclass(field.remote_field.model, workplace_model_class)
+
+    def test_field_conf_user(self, booking_model_class, user_model_class):
+        field = booking_model_class._meta.get_field("user")
+        assert issubclass(field.remote_field.model, user_model_class)
