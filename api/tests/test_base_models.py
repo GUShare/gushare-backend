@@ -465,6 +465,12 @@ class TestWorkplaceFields:
         field = workplace_model_class._meta.get_field("room")
         assert issubclass(field.remote_field.model, room_model_class)
 
+    def test_field_conf_favorite_workplace(
+        self, workplace_model_class, user_model_class
+    ):
+        field = workplace_model_class._meta.get_field("favorite_workplace")
+        assert issubclass(field.remote_field.model, user_model_class)
+
 
 class TestBookingFields:
     """
