@@ -4,6 +4,9 @@ version = "0.1.0"
 description = "The backend application for the GUShare project."
 authors = ["Christian Grossmüller", "Sören Grieger"]
 
+[tool.isort]
+profile = "black"
+
 [tool.poetry.dependencies]
 python = "^3.8"
 psycopg2-binary = "*"
@@ -16,6 +19,7 @@ raven = "*"
 djangorestframework = "*"
 Pillow = "^9.4.0"
 django-location-field = "^2.1.0"
+black = "^23.1.0"
 
 [tool.poetry.dev-dependencies]
 pytest = "*"
