@@ -381,3 +381,86 @@ class TestRoomFields:
     def test_field_conf_building(self, room_model_class, building_model_class):
         field = room_model_class._meta.get_field("building")
         assert issubclass(field.remote_field.model, building_model_class)
+
+
+class TestWorkplaceFields:
+    """
+    This Testsuit summerizes the basic field tests:
+    1. Do all fields exist
+    2. Do all fields have the correct format/class instance
+    """
+
+    def test_model_has_id_field(self, workplace_model_class):
+        assert hasattr(workplace_model_class, "id")
+
+    def test_model_has_room_field(self, workplace_model_class):
+        assert hasattr(workplace_model_class, "room")
+
+    def test_model_has_favorite_workplace_field(self, workplace_model_class):
+        assert hasattr(workplace_model_class, "favorite_workplace")
+
+    def test_model_has_in_room_id_field(self, workplace_model_class):
+        assert hasattr(workplace_model_class, "in_room_id")
+
+    def test_model_has_equipment_field(self, workplace_model_class):
+        assert hasattr(workplace_model_class, "equipment")
+
+    def test_model_has_maintenance_availebility_field(self, workplace_model_class):
+        assert hasattr(workplace_model_class, "maintenance_availebility")
+
+    def test_model_has_maintenance_status_field(self, workplace_model_class):
+        assert hasattr(workplace_model_class, "maintenance_status")
+
+    def test_model_has_notification_field(self, workplace_model_class):
+        assert hasattr(workplace_model_class, "notification")
+
+    def test_field_type_id(self, workplace_model_class):
+        assert isinstance(workplace_model_class._meta.get_field("id"), models.UUIDField)
+
+    def test_field_type_room(self, workplace_model_class):
+        assert isinstance(
+            workplace_model_class._meta.get_field("room"), models.ForeignKey
+        )
+
+    def test_field_type_favorite_workplace(self, workplace_model_class):
+        assert isinstance(
+            workplace_model_class._meta.get_field("favorite_workplace"),
+            models.ManyToManyField,
+        )
+
+    def test_field_type_in_room_id(self, workplace_model_class):
+        assert isinstance(
+            workplace_model_class._meta.get_field("in_room_id"), models.IntegerField
+        )
+
+    def test_field_type_equipment(self, workplace_model_class):
+        assert isinstance(
+            workplace_model_class._meta.get_field("equipment"), ArrayField
+        )
+
+    def test_field_type_maintenance_availebility(self, workplace_model_class):
+        assert isinstance(
+            workplace_model_class._meta.get_field("maintenance_availebility"),
+            models.BooleanField,
+        )
+
+    def test_field_type_maintenance_status(self, workplace_model_class):
+        assert isinstance(
+            workplace_model_class._meta.get_field("maintenance_status"),
+            models.TextField,
+        )
+
+    def test_field_type_notification(self, workplace_model_class):
+        assert isinstance(
+            workplace_model_class._meta.get_field("notification"), models.TextField
+        )
+
+    def test_field_conf_id(self, workplace_model_class):
+        field = workplace_model_class._meta.get_field("id")
+        assert field.primary_key
+        assert field.default == uuid.uuid4
+        assert not field.editable
+
+    def test_field_conf_room(self, workplace_model_class, room_model_class):
+        field = workplace_model_class._meta.get_field("room")
+        assert issubclass(field.remote_field.model, room_model_class)
