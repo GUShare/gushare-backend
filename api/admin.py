@@ -3,11 +3,10 @@ from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.urls import reverse
 from django.utils.html import format_html
 
-from api.models import User, Building, Room, Workplace, Booking
+from api.models import Booking, Building, Room, User, Workplace
 
 
 class UserAdmin(BaseUserAdmin):
-
     list_display = (
         "id",
         "email",
@@ -27,7 +26,6 @@ admin.site.register(User, UserAdmin)
 
 
 class BuildingAdmin(admin.ModelAdmin):
-
     list_display = (
         "id",
         "name",
@@ -49,7 +47,6 @@ admin.site.register(Building, BuildingAdmin)
 
 
 class RoomAdmin(admin.ModelAdmin):
-
     list_display = (
         "id",
         "link_building",
@@ -77,7 +74,6 @@ admin.site.register(Room, RoomAdmin)
 
 
 class WorkplaceAdmin(admin.ModelAdmin):
-
     list_display = (
         "id",
         "link_room",
@@ -86,7 +82,7 @@ class WorkplaceAdmin(admin.ModelAdmin):
         "maintenance_availebility",
         "maintenance_status",
         "notification",
-        "link_users"
+        "link_users",
     )
     list_per_page = 10
     ordering = ("room", "in_room_id")
@@ -110,7 +106,6 @@ admin.site.register(Workplace, WorkplaceAdmin)
 
 
 class BookingAdmin(admin.ModelAdmin):
-
     list_display = (
         "id",
         "link_workplaces",

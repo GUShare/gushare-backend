@@ -3,22 +3,15 @@ import uuid
 from django.contrib.auth.base_user import BaseUserManager
 from django.contrib.auth.models import AbstractUser
 from django.contrib.postgres.fields import ArrayField
-from location_field.models.plain import PlainLocationField
-
 from django.db import models
+from location_field.models.plain import PlainLocationField
 
 
 class CustomUserManager(BaseUserManager):
     use_in_migrations = True
 
     def _create_user(
-        self,
-        email,
-        password,
-        first_name="",
-        last_name="",
-        username="",
-        **extra_fields
+        self, email, password, first_name="", last_name="", username="", **extra_fields
     ):
         """
         Create and save a user with the given username, email, password, first_name, last_name and personal_number.
@@ -26,10 +19,7 @@ class CustomUserManager(BaseUserManager):
 
         email = self.normalize_email(email)
         user = self.model(
-            email=email,
-            first_name=first_name,
-            last_name=last_name,
-            **extra_fields
+            email=email, first_name=first_name, last_name=last_name, **extra_fields
         )
         user.set_password(password)
         user.save(using=self._db)
@@ -78,7 +68,6 @@ class CustomUserManager(BaseUserManager):
 
 
 class User(AbstractUser):
-
     LANGUAGE_CHOICES = (("de", "Deutsch"), ("en", "English"))
     id = models.UUIDField(
         primary_key=True, default=uuid.uuid4, editable=False, unique=True
@@ -100,10 +89,7 @@ class User(AbstractUser):
 
 
 class Building(models.Model):
-    AMENITY_CHOICES = (
-        ("1", "lift"),
-        ("2", "parking deck")
-    )
+    AMENITY_CHOICES = (("1", "lift"), ("2", "parking deck"))
 
     id = models.UUIDField(
         primary_key=True, default=uuid.uuid4, editable=False, unique=True
@@ -118,25 +104,28 @@ class Building(models.Model):
     geo = PlainLocationField(zoom=7, default=None, null=True, blank=True)
     map = models.ImageField()
     maximum_attendee_capacity = models.IntegerField()
-    amenity_feature = ArrayField(base_field=models.CharField(choices=AMENITY_CHOICES, max_length=3))
+    amenity_feature = ArrayField(
+        base_field=models.CharField(choices=AMENITY_CHOICES, max_length=3)
+    )
 
 
 class Room(models.Model):
-    ROOMTYPE_CHOICES = (
-        ("1", "CoWorking"),
-        ("2", "Meeting")
-    )
+    ROOMTYPE_CHOICES = (("1", "CoWorking"), ("2", "Meeting"))
 
     id = models.UUIDField(
         primary_key=True, default=uuid.uuid4, editable=False, unique=True
     )
-    building = models.ForeignKey(to=Building, related_name="rooms", on_delete=models.CASCADE)
+    building = models.ForeignKey(
+        to=Building, related_name="rooms", on_delete=models.CASCADE
+    )
     name = models.CharField(max_length=128)
     alternate_name = models.CharField(max_length=128)
     description = models.TextField(max_length=500)
     photo = models.ImageField()
     room_location = models.ImageField()
-    room_type = ArrayField(base_field=models.CharField(choices=ROOMTYPE_CHOICES, max_length=3))
+    room_type = ArrayField(
+        base_field=models.CharField(choices=ROOMTYPE_CHOICES, max_length=3)
+    )
     maintenance_availebility = models.BooleanField(default=True)
     maintenance_status = models.TextField(max_length=250)
     # todo: permissions
@@ -150,23 +139,26 @@ class Workplace(models.Model):
         ("4", "USB-C Docking-station"),
         ("5", "Electric adjustable desk"),
         ("6", "Printer"),
-        ("7", "Telephone")
+        ("7", "Telephone"),
     )
 
     id = models.UUIDField(
         primary_key=True, default=uuid.uuid4, editable=False, unique=True
     )
-    room = models.ForeignKey(to=Room, related_name="workplaces", on_delete=models.CASCADE)
+    room = models.ForeignKey(
+        to=Room, related_name="workplaces", on_delete=models.CASCADE
+    )
     favorite_workplace = models.ManyToManyField(to=User)
     in_room_id = models.IntegerField()
-    equipment = ArrayField(base_field=models.CharField(choices=EQUIPMENT_CHOICES, max_length=3))
+    equipment = ArrayField(
+        base_field=models.CharField(choices=EQUIPMENT_CHOICES, max_length=3)
+    )
     maintenance_availebility = models.BooleanField(default=True)
     maintenance_status = models.TextField(max_length=250)
     notification = models.TextField(max_length=500)
 
 
 class Booking(models.Model):
-
     id = models.UUIDField(
         primary_key=True, default=uuid.uuid4, editable=False, unique=True
     )
