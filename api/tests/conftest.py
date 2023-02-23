@@ -4,3 +4,5 @@
 # found here: https://docs.pytest.org/en/latest/fixture.html#conftest-py-sharing-fixture-functions
 
 from api.tests.conftest_files.general_conftest import *  # noqa
+
+from api.tests.conftest_files.general_conftest import *  # noqa
