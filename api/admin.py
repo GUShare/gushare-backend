@@ -3,7 +3,7 @@ from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.urls import reverse
 from django.utils.html import format_html
 
-from api.models import User, Building, Room, Workplace, Booking
+from api.models import Booking, Building, Room, User, Workplace
 
 
 class UserAdmin(BaseUserAdmin):
