@@ -82,6 +82,7 @@ class BookingSerializer(serializers.Serializer):
         return super().to_internal_value(data)
 
     def validate(self, data):
+        user = data.get("user")
         started = data.get("started")
         stopped = data.get("stopped")
         workplaces = data.get("workplaces")
@@ -128,10 +129,12 @@ class BookingSerializer(serializers.Serializer):
         # Validate that if len(workplaces) > 1 all workplaces of this booking should be in one room
         if len(workplaces) > 1:
             base_room = Room.objects.filter(id=workplaces[0].id)
-            for i in range(1,len(workplaces)):
+            for i in range(1, len(workplaces)):
                 if workplaces[i].id != base_room.id:
                     raise serializers.ValidationError(
                         _(
                             "All Workplaces in a Room-Booking have to reference to the same Room."
                         )
                     )
+
+        # todo: Validate that a user have no other bookings in this time in the same Room-Type
