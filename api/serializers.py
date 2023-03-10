@@ -19,14 +19,13 @@ class UserSerializer(serializers.Serializer):
             "email",
             "first_name",
             "last_name",
-            "personal_number",
             "language",
-            "dsgvo_accepted",
             "date_joined",
             "modified_at",
+            "dsgvo_accepted",
+            "onboarding_passed",
             "last_login",
             "is_superuser",
-            "onboarding_passed",
         ]
         ref_name = "user-gdpr-serializers"
 
@@ -41,14 +40,13 @@ class DjoserUserSerializer(serializers.Serializer):
             "email",
             "first_name",
             "last_name",
-            "personal_number",
             "language",
-            "dsgvo_accepted",
             "date_joined",
             "modified_at",
+            "dsgvo_accepted",
+            "onboarding_passed",
             "last_login",
             "is_superuser",
-            "onboarding_passed",
         ]
 
 

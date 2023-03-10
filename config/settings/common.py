@@ -9,8 +9,10 @@ https://docs.djangoproject.com/en/dev/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/dev/ref/settings/
 """
+from datetime import timedelta
 
 import environ
+from corsheaders.defaults import default_headers
 from django.utils.translation import gettext_lazy as _
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -32,6 +34,8 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "location_field.apps.DefaultConfig",
+    "rest_framework",
+    "djoser",
 ]
 
 MIDDLEWARE = [
@@ -93,6 +97,59 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+AUTH_USER_MODEL = "api.User"
+
+# Simple_JWT
+SIMPLE_JWT = {
+    "ALGORITHM": "HS256",
+    "SIGNING_KEY": env.str("DJANGO_SECRET_KEY"),
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=30),
+    "ROTATE_REFRESH_TOKENS": True,
+}
+
+REST_FRAMEWORK = {
+    "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.IsAuthenticated",),
+    "DEFAULT_AUTHENTICATION_CLASSES": (
+        "rest_framework_simplejwt.authentication.JWTAuthentication",
+        "dj_rest_auth.utils.JWTCookieAuthentication",
+    ),
+    "DEFAULT_FILTER_BACKENDS": ("django_filters.rest_framework.DjangoFilterBackend",),
+}
+
+
+# Djoser
+DJOSER = {
+    "TOKEN_MODEL": None,
+    "SERIALIZERS": {
+        "user_delete": "api.serializers.DjoserUserSerializer",
+        "current_user": "api.serializers.UserSerializer",
+    },
+}
+
+# django-allauth: Query for the users email,
+# but do not prompt for verification
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_EMAIL_VERIFICATION = "none"
+
+# Return JWT and cookie after logging in
+REST_USE_JWT = True
+JWT_AUTH_COOKIE = "clock"
+
+# Explicitly allow the frontend URL(s) that will be allowd to access the backend
+# Define them as a comma-separated list, i.e.
+# CORS_ORIGIN_WHITELIST=https://example.com,https://subdomain.example.com
+# A single domain without a trailing comma also works:
+# CORS_ORIGIN_WHITELIST=https://example.com
+CORS_ORIGIN_WHITELIST = env.tuple("CORS_ORIGIN_WHITELIST", default=())
+
+
+CORS_ALLOW_HEADERS = list(default_headers) + ["checkoutuser"]
+
+# The client must provide a `redirect_uri` query parameter when requesting the
+# authorization code URL. We retrieve it from the environment.
+GOETHE_OAUTH2_REDIRECT_URI = env.str("GOETHE_OAUTH2_REDIRECT_URI", default="")
+
+
 # Internationalization
 # https://docs.djangoproject.com/en/dev/topics/i18n/
 
@@ -105,6 +162,8 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
+
+SITE_ID = env.int("SITE_ID", default=1)
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/dev/howto/static-files/
@@ -122,9 +181,6 @@ STATICFILES_FINDERS = (
 # Locale
 LANGUAGES = [("de", _("German")), ("en", _("English"))]
 LOCALE_PATHS = [str(ROOT_DIR("locale"))]
-
-# User Model
-AUTH_USER_MODEL = "api.User"
 
 # Location
 LOCATION_FIELD = {

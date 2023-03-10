@@ -20,6 +20,12 @@ djangorestframework = "*"
 Pillow = "^9.4.0"
 django-location-field = "^2.1.0"
 black = "^23.1.0"
+djoser = "*"
+django-cors-headers = "^3.14.0"
+dj-rest-auth = "1.0.9"
+djangorestframework-simplejwt = "^5.2.2"
+django-allauth = "^0.52.0"
+django-filter = "^22.1"
 
 [tool.poetry.dev-dependencies]
 pytest = "*"
