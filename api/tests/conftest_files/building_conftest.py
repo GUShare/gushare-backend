@@ -1,13 +1,13 @@
 import pytest
 from rest_framework.request import QueryDict
 
+from api.models import Building
+
 
 @pytest.fixture
 def valid_building_json():
     """
     This fixture provides a valid (according to the ContractSerializer) JSON dictionary.
-    :param user_object:
-    :param user_object:
     :return: Dict
     """
     name = "Test Building"
@@ -43,3 +43,12 @@ def valid_building_querydict(valid_building_json):
     qdict = QueryDict("", mutable=True)
     qdict.update(valid_building_json)
     return qdict
+
+
+@pytest.fixture
+def building_object(valid_building_json):
+    """
+    This fixture creates a building object.
+    :return: Building
+    """
+    return Building.objects.create(**valid_building_json)
