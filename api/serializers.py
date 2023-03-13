@@ -85,7 +85,9 @@ class BookingSerializer(serializers.Serializer):
         stopped = data.get("stopped")
         workplaces = data.get("workplaces")
 
-        if self.instance and (self.partial or self.context["request"].method == "PUT"):
+        if self.instance and (
+            self.partial or self.context["request"].method == "PUT"
+        ):
             started = data.get("started", self.instance.started)
             stopped = data.get("stopped", self.instance.stopped)
 

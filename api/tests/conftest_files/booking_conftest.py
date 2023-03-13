@@ -23,7 +23,9 @@ def valid_booking_json(workplace_object, user_object):
     started = datetime.datetime(2023, 1, 29, 14).astimezone(tz).isoformat()
     stopped = datetime.datetime(2023, 1, 29, 16).astimezone(tz).isoformat()
     email_others = ["test1@test.de", "test2@test.at"]
-    confirmed_at = datetime.datetime(2023, 1, 29, 14, 5).astimezone(tz).isoformat()
+    confirmed_at = (
+        datetime.datetime(2023, 1, 29, 14, 5).astimezone(tz).isoformat()
+    )
     note = "This is a note."
 
     data = {

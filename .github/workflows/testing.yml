@@ -1,4 +1,4 @@
-name: Linting and Testing
+name: pytest
 
 on:
   pull_request:
@@ -25,4 +25,4 @@ jobs:
           poetry install
 
       - name: Run unit tests
-        run: poetry run python -m py.test
+        run: docker-compose run --rm web pytest

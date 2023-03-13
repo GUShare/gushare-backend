@@ -11,7 +11,13 @@ class CustomUserManager(BaseUserManager):
     use_in_migrations = True
 
     def _create_user(
-        self, email, password, first_name="", last_name="", username="", **extra_fields
+        self,
+        email,
+        password,
+        first_name="",
+        last_name="",
+        username="",
+        **extra_fields,
     ):
         """
         Create and save a user with the given username, email, password, first_name, last_name and personal_number.
@@ -19,7 +25,10 @@ class CustomUserManager(BaseUserManager):
 
         email = self.normalize_email(email)
         user = self.model(
-            email=email, first_name=first_name, last_name=last_name, **extra_fields
+            email=email,
+            first_name=first_name,
+            last_name=last_name,
+            **extra_fields,
         )
         user.set_password(password)
         user.save(using=self._db)
@@ -32,7 +41,7 @@ class CustomUserManager(BaseUserManager):
         last_name="",
         password="",
         username="",
-        **extra_fields
+        **extra_fields,
     ):
         if not email:
             raise ValueError("The field 'email' is required.")
@@ -52,7 +61,7 @@ class CustomUserManager(BaseUserManager):
             password=password,
             first_name=first_name,
             last_name=last_name,
-            **extra_fields
+            **extra_fields,
         )
 
     def create_superuser(self, email, password, **extra_fields):
@@ -76,7 +85,9 @@ class User(AbstractUser):
     email = models.EmailField(unique=True)
     first_name = models.CharField(max_length=50)  # Firstname is required
     last_name = models.CharField(max_length=100)  # Lastname is required
-    language = models.CharField(choices=LANGUAGE_CHOICES, default="de", max_length=2)
+    language = models.CharField(
+        choices=LANGUAGE_CHOICES, default="de", max_length=2
+    )
     date_joined = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
     dsgvo_accepted = models.BooleanField(default=False)
@@ -163,7 +174,9 @@ class Booking(models.Model):
         primary_key=True, default=uuid.uuid4, editable=False, unique=True
     )
     workplaces = models.ManyToManyField(to=Workplace)
-    user = models.ForeignKey(to=User, related_name="bookings", on_delete=models.CASCADE)
+    user = models.ForeignKey(
+        to=User, related_name="bookings", on_delete=models.CASCADE
+    )
     started = models.DateTimeField()
     stopped = models.DateTimeField()
     email_others = ArrayField(base_field=models.CharField(max_length=250))

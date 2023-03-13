@@ -136,10 +136,14 @@ class TestUserFields:
         assert hasattr(user_model_class, "onboarding_passed")
 
     def test_field_type_id(self, user_model_class):
-        assert isinstance(user_model_class._meta.get_field("id"), models.UUIDField)
+        assert isinstance(
+            user_model_class._meta.get_field("id"), models.UUIDField
+        )
 
     def test_field_type_email(self, user_model_class):
-        assert isinstance(user_model_class._meta.get_field("email"), models.EmailField)
+        assert isinstance(
+            user_model_class._meta.get_field("email"), models.EmailField
+        )
 
     def test_field_type_first_name(self, user_model_class):
         assert isinstance(
@@ -158,22 +162,26 @@ class TestUserFields:
 
     def test_field_type_created_at(self, user_model_class):
         assert isinstance(
-            user_model_class._meta.get_field("date_joined"), models.DateTimeField
+            user_model_class._meta.get_field("date_joined"),
+            models.DateTimeField,
         )
 
     def test_field_type_modified_at(self, user_model_class):
         assert isinstance(
-            user_model_class._meta.get_field("modified_at"), models.DateTimeField
+            user_model_class._meta.get_field("modified_at"),
+            models.DateTimeField,
         )
 
     def test_field_type_dsgvo_accepted(self, user_model_class):
         assert isinstance(
-            user_model_class._meta.get_field("dsgvo_accepted"), models.BooleanField
+            user_model_class._meta.get_field("dsgvo_accepted"),
+            models.BooleanField,
         )
 
     def test_field_type_onboarding_passed(self, user_model_class):
         assert isinstance(
-            user_model_class._meta.get_field("onboarding_passed"), models.BooleanField
+            user_model_class._meta.get_field("onboarding_passed"),
+            models.BooleanField,
         )
 
     def test_field_conf_id(self, user_model_class):
@@ -220,14 +228,18 @@ class TestBuildingFields:
     def test_model_has_map_field(self, building_model_class):
         assert hasattr(building_model_class, "map")
 
-    def test_model_has_maximum_attendee_capacity_field(self, building_model_class):
+    def test_model_has_maximum_attendee_capacity_field(
+        self, building_model_class
+    ):
         assert hasattr(building_model_class, "maximum_attendee_capacity")
 
     def test_model_has_amenity_feature_field(self, building_model_class):
         assert hasattr(building_model_class, "amenity_feature")
 
     def test_field_type_id(self, building_model_class):
-        assert isinstance(building_model_class._meta.get_field("id"), models.UUIDField)
+        assert isinstance(
+            building_model_class._meta.get_field("id"), models.UUIDField
+        )
 
     def test_field_type_name(self, building_model_class):
         assert isinstance(
@@ -236,12 +248,14 @@ class TestBuildingFields:
 
     def test_field_type_alternate_name(self, building_model_class):
         assert isinstance(
-            building_model_class._meta.get_field("alternate_name"), models.CharField
+            building_model_class._meta.get_field("alternate_name"),
+            models.CharField,
         )
 
     def test_field_type_description(self, building_model_class):
         assert isinstance(
-            building_model_class._meta.get_field("description"), models.TextField
+            building_model_class._meta.get_field("description"),
+            models.TextField,
         )
 
     def test_field_type_photo(self, building_model_class):
@@ -256,7 +270,8 @@ class TestBuildingFields:
 
     def test_field_type_opening_hours(self, building_model_class):
         assert isinstance(
-            building_model_class._meta.get_field("opening_hours"), models.TextField
+            building_model_class._meta.get_field("opening_hours"),
+            models.TextField,
         )
 
     def test_field_type_address(self, building_model_class):
@@ -330,10 +345,14 @@ class TestRoomFields:
         assert hasattr(room_model_class, "maintenance_status")
 
     def test_field_type_id(self, room_model_class):
-        assert isinstance(room_model_class._meta.get_field("id"), models.UUIDField)
+        assert isinstance(
+            room_model_class._meta.get_field("id"), models.UUIDField
+        )
 
     def test_field_type_name(self, room_model_class):
-        assert isinstance(room_model_class._meta.get_field("name"), models.CharField)
+        assert isinstance(
+            room_model_class._meta.get_field("name"), models.CharField
+        )
 
     def test_field_type_building(self, room_model_class):
         assert isinstance(
@@ -351,7 +370,9 @@ class TestRoomFields:
         )
 
     def test_field_type_photo(self, room_model_class):
-        assert isinstance(room_model_class._meta.get_field("photo"), models.ImageField)
+        assert isinstance(
+            room_model_class._meta.get_field("photo"), models.ImageField
+        )
 
     def test_field_type_room_location(self, room_model_class):
         assert isinstance(
@@ -359,7 +380,9 @@ class TestRoomFields:
         )
 
     def test_field_type_room_type(self, room_model_class):
-        assert isinstance(room_model_class._meta.get_field("room_type"), ArrayField)
+        assert isinstance(
+            room_model_class._meta.get_field("room_type"), ArrayField
+        )
 
     def test_field_type_maintenance_availebility(self, room_model_class):
         assert isinstance(
@@ -369,7 +392,8 @@ class TestRoomFields:
 
     def test_field_type_maintenance_status(self, room_model_class):
         assert isinstance(
-            room_model_class._meta.get_field("maintenance_status"), models.TextField
+            room_model_class._meta.get_field("maintenance_status"),
+            models.TextField,
         )
 
     def test_field_conf_id(self, room_model_class):
@@ -405,7 +429,9 @@ class TestWorkplaceFields:
     def test_model_has_equipment_field(self, workplace_model_class):
         assert hasattr(workplace_model_class, "equipment")
 
-    def test_model_has_maintenance_availebility_field(self, workplace_model_class):
+    def test_model_has_maintenance_availebility_field(
+        self, workplace_model_class
+    ):
         assert hasattr(workplace_model_class, "maintenance_availebility")
 
     def test_model_has_maintenance_status_field(self, workplace_model_class):
@@ -415,7 +441,9 @@ class TestWorkplaceFields:
         assert hasattr(workplace_model_class, "notification")
 
     def test_field_type_id(self, workplace_model_class):
-        assert isinstance(workplace_model_class._meta.get_field("id"), models.UUIDField)
+        assert isinstance(
+            workplace_model_class._meta.get_field("id"), models.UUIDField
+        )
 
     def test_field_type_room(self, workplace_model_class):
         assert isinstance(
@@ -430,7 +458,8 @@ class TestWorkplaceFields:
 
     def test_field_type_in_room_id(self, workplace_model_class):
         assert isinstance(
-            workplace_model_class._meta.get_field("in_room_id"), models.IntegerField
+            workplace_model_class._meta.get_field("in_room_id"),
+            models.IntegerField,
         )
 
     def test_field_type_equipment(self, workplace_model_class):
@@ -452,7 +481,8 @@ class TestWorkplaceFields:
 
     def test_field_type_notification(self, workplace_model_class):
         assert isinstance(
-            workplace_model_class._meta.get_field("notification"), models.TextField
+            workplace_model_class._meta.get_field("notification"),
+            models.TextField,
         )
 
     def test_field_conf_id(self, workplace_model_class):
@@ -504,11 +534,14 @@ class TestBookingFields:
         assert hasattr(booking_model_class, "note")
 
     def test_field_type_id(self, booking_model_class):
-        assert isinstance(booking_model_class._meta.get_field("id"), models.UUIDField)
+        assert isinstance(
+            booking_model_class._meta.get_field("id"), models.UUIDField
+        )
 
     def test_field_type_workplaces(self, booking_model_class):
         assert isinstance(
-            booking_model_class._meta.get_field("workplaces"), models.ManyToManyField
+            booking_model_class._meta.get_field("workplaces"),
+            models.ManyToManyField,
         )
 
     def test_field_type_user(self, booking_model_class):
@@ -533,11 +566,14 @@ class TestBookingFields:
 
     def test_field_type_confirmed_at(self, booking_model_class):
         assert isinstance(
-            booking_model_class._meta.get_field("confirmed_at"), models.DateTimeField
+            booking_model_class._meta.get_field("confirmed_at"),
+            models.DateTimeField,
         )
 
     def test_field_type_note(self, booking_model_class):
-        assert isinstance(booking_model_class._meta.get_field("note"), models.TextField)
+        assert isinstance(
+            booking_model_class._meta.get_field("note"), models.TextField
+        )
 
     def test_field_conf_id(self, booking_model_class):
         field = booking_model_class._meta.get_field("id")
@@ -545,7 +581,9 @@ class TestBookingFields:
         assert field.default == uuid.uuid4
         assert not field.editable
 
-    def test_field_conf_workplace(self, booking_model_class, workplace_model_class):
+    def test_field_conf_workplace(
+        self, booking_model_class, workplace_model_class
+    ):
         field = booking_model_class._meta.get_field("workplaces")
         assert issubclass(field.remote_field.model, workplace_model_class)
 

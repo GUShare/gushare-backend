@@ -24,7 +24,8 @@ class TestBuildingSerializerValidation:
         :return:
         """
         BuildingSerializer(
-            data=valid_building_querydict, context={"request": plain_request_object}
+            data=valid_building_querydict,
+            context={"request": plain_request_object},
         ).is_valid(raise_exception=True)
 
 
@@ -34,7 +35,9 @@ class TestRoomSerializerValidation:
     """
 
     @pytest.mark.django_db
-    def test_validate_correct_data(self, valid_room_querydict, plain_request_object):
+    def test_validate_correct_data(
+        self, valid_room_querydict, plain_request_object
+    ):
         """
         The RoomSerializer is tested if a valid JSON passes validation.
         :param valid_room_querydict:
@@ -62,7 +65,8 @@ class TestWorkplaceSerializerValidation:
         :return:
         """
         WorkplaceSerializer(
-            data=valid_workplace_querydict, context={"request": plain_request_object}
+            data=valid_workplace_querydict,
+            context={"request": plain_request_object},
         ).is_valid(raise_exception=True)
 
 
@@ -72,7 +76,9 @@ class TestBookingSerializerValidation:
     """
 
     @pytest.mark.django_db
-    def test_validate_correct_data(self, valid_booking_querydict, plain_request_object):
+    def test_validate_correct_data(
+        self, valid_booking_querydict, plain_request_object
+    ):
         """
         The BookingSerializer is tested if a valid JSON passes validation.
         :param valid_workplace_querydict:
@@ -80,5 +86,6 @@ class TestBookingSerializerValidation:
         :return:
         """
         BookingSerializer(
-            data=valid_booking_querydict, context={"request": plain_request_object}
+            data=valid_booking_querydict,
+            context={"request": plain_request_object},
         ).is_valid(raise_exception=True)
