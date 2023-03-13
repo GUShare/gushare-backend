@@ -1,6 +1,11 @@
 import pytest
 
-from api.serializers import BookingSerializer, BuildingSerializer, WorkplaceSerializer, RoomSerializer
+from api.serializers import (
+    BookingSerializer,
+    BuildingSerializer,
+    RoomSerializer,
+    WorkplaceSerializer,
+)
 
 
 class TestBuildingSerializerValidation:
@@ -67,9 +72,7 @@ class TestBookingSerializerValidation:
     """
 
     @pytest.mark.django_db
-    def test_validate_correct_data(
-        self, valid_booking_querydict, plain_request_object
-    ):
+    def test_validate_correct_data(self, valid_booking_querydict, plain_request_object):
         """
         The BookingSerializer is tested if a valid JSON passes validation.
         :param valid_workplace_querydict:
