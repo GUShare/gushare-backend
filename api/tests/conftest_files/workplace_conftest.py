@@ -16,8 +16,8 @@ def valid_workplace_json(room_object):
     in_room_id = 1
     equipment = ["1", "2", "5", "6"]
     maintenance_availebility = True
-    maintenance_status = "This workplace is available"
-    notification = "Take care, you will have the door in your back."
+    maintenance_status = "This a text for the maintenance status"
+    notification = "This is a note."
 
     data = {
         "room": room,

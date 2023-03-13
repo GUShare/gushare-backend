@@ -1,6 +1,6 @@
 import pytest
 
-from api.serializers import BookingSerializer, BuildingSerializer, WorkplaceSerializer
+from api.serializers import BookingSerializer, BuildingSerializer, WorkplaceSerializer, RoomSerializer
 
 
 class TestBuildingSerializerValidation:
@@ -32,11 +32,11 @@ class TestRoomSerializerValidation:
     def test_validate_correct_data(self, valid_room_querydict, plain_request_object):
         """
         The RoomSerializer is tested if a valid JSON passes validation.
-        :param valid_building_querydict:
+        :param valid_room_querydict:
         :param plain_request_object:
         :return:
         """
-        BuildingSerializer(
+        RoomSerializer(
             data=valid_room_querydict, context={"request": plain_request_object}
         ).is_valid(raise_exception=True)
 
@@ -58,4 +58,24 @@ class TestWorkplaceSerializerValidation:
         """
         WorkplaceSerializer(
             data=valid_workplace_querydict, context={"request": plain_request_object}
+        ).is_valid(raise_exception=True)
+
+
+class TestBookingSerializerValidation:
+    """
+    This Testsuite summarizes the Validation and Representation of the WorkplaceSerializer.
+    """
+
+    @pytest.mark.django_db
+    def test_validate_correct_data(
+        self, valid_booking_querydict, plain_request_object
+    ):
+        """
+        The BookingSerializer is tested if a valid JSON passes validation.
+        :param valid_workplace_querydict:
+        :param plain_request_object:
+        :return:
+        """
+        BookingSerializer(
+            data=valid_booking_querydict, context={"request": plain_request_object}
         ).is_valid(raise_exception=True)
