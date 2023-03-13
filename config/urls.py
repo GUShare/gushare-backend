@@ -23,4 +23,6 @@ from django.urls import include, path
 urlpatterns = [
     path(r"", include("api.urls"), name="main"),
     path(r"admin/", admin.site.urls),
+    path(r"auth/", include("djoser.urls"), name="djoser-auth"),
+    path(r"auth/", include("djoser.urls.jwt")),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

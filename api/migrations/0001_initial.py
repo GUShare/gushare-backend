@@ -21,7 +21,10 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name="User",
             fields=[
-                ("password", models.CharField(max_length=128, verbose_name="password")),
+                (
+                    "password",
+                    models.CharField(max_length=128, verbose_name="password"),
+                ),
                 (
                     "last_login",
                     models.DateTimeField(
@@ -142,7 +145,8 @@ class Migration(migrations.Migration):
                     "amenity_feature",
                     django.contrib.postgres.fields.ArrayField(
                         base_field=models.CharField(
-                            choices=[("1", "lift"), ("2", "parking deck")], max_length=3
+                            choices=[("1", "lift"), ("2", "parking deck")],
+                            max_length=3,
                         ),
                         size=None,
                     ),
@@ -171,7 +175,8 @@ class Migration(migrations.Migration):
                     "room_type",
                     django.contrib.postgres.fields.ArrayField(
                         base_field=models.CharField(
-                            choices=[("1", "CoWorking"), ("2", "Meeting")], max_length=3
+                            choices=[("1", "CoWorking"), ("2", "Meeting")],
+                            max_length=3,
                         ),
                         size=None,
                     ),
