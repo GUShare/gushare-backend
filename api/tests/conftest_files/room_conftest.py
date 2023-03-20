@@ -1,7 +1,7 @@
 import pytest
 from rest_framework.request import QueryDict
 
-from api.models import Room
+from api.models import Building, Room
 
 
 @pytest.fixture
@@ -16,7 +16,7 @@ def valid_room_json(building_object):
     alternate_name = "TR"
     description = "This is a test Room"
     room_type = ["1"]
-    building = str(building_object.id)
+    building = building_object.id
     maintenance_availebility = True
     maintenance_status = "This room is available"
 
@@ -51,4 +51,12 @@ def room_object(valid_room_json):
     This fixture creates a room object.
     :return: Room
     """
-    return Room.objects.create(**valid_room_json)
+    return Room.objects.create(
+        name=valid_room_json["name"],
+        alternate_name=valid_room_json["alternate_name"],
+        description=valid_room_json["description"],
+        room_type=valid_room_json["room_type"],
+        building=Building.objects.get(id=valid_room_json["building"]),
+        maintenance_availebility=valid_room_json["maintenance_availebility"],
+        maintenance_status=valid_room_json["maintenance_status"],
+    )

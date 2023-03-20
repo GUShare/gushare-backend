@@ -24,6 +24,7 @@ class UserSerializer(serializers.Serializer):
             "modified_at",
             "dsgvo_accepted",
             "onboarding_passed",
+            "favorite_workplaces",
             "last_login",
             "is_superuser",
         ]
@@ -45,6 +46,7 @@ class DjoserUserSerializer(serializers.Serializer):
             "modified_at",
             "dsgvo_accepted",
             "onboarding_passed",
+            "favorite_workplaces",
             "last_login",
             "is_superuser",
         ]
@@ -68,7 +70,7 @@ class WorkplaceSerializer(serializers.Serializer):
         fields = "__all__"
 
 
-class BookingSerializer(serializers.Serializer):
+class BookingSerializer(serializers.ModelSerializer):
     class Meta:
         model = Booking
         fields = "__all__"

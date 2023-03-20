@@ -51,4 +51,15 @@ def building_object(valid_building_json):
     This fixture creates a building object.
     :return: Building
     """
-    return Building.objects.create(**valid_building_json)
+    return Building.objects.create(
+        name=valid_building_json["name"],
+        alternate_name=valid_building_json["alternate_name"],
+        description=valid_building_json["description"],
+        telephone=valid_building_json["telephone"],
+        opening_hours=valid_building_json["opening_hours"],
+        address=valid_building_json["address"],
+        maximum_attendee_capacity=valid_building_json[
+            "maximum_attendee_capacity"
+        ],
+        amenity_features=valid_building_json["amenity_features"],
+    )

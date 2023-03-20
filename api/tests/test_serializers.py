@@ -4,6 +4,7 @@ from api.serializers import (
     BookingSerializer,
     BuildingSerializer,
     RoomSerializer,
+    UserSerializer,
     WorkplaceSerializer,
 )
 
@@ -87,5 +88,26 @@ class TestBookingSerializerValidation:
         """
         BookingSerializer(
             data=valid_booking_querydict,
+            context={"request": plain_request_object},
+        ).is_valid(raise_exception=True)
+
+
+class TestUserSerializerValidation:
+    """
+    This Testsuite summarizes the Validation and Representation of the WorkplaceSerializer.
+    """
+
+    @pytest.mark.django_db
+    def test_validate_correct_data(
+        self, valid_user_querydict, plain_request_object
+    ):
+        """
+        The USerSerializer is tested if a valid JSON passes validation.
+        :param valid_user_querydict:
+        :param plain_request_object:
+        :return:
+        """
+        UserSerializer(
+            data=valid_user_querydict,
             context={"request": plain_request_object},
         ).is_valid(raise_exception=True)

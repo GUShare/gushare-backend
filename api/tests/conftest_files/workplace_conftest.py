@@ -1,7 +1,7 @@
 import pytest
 from rest_framework.request import QueryDict
 
-from api.models import Workplace
+from api.models import Room, Workplace
 
 
 @pytest.fixture
@@ -12,7 +12,7 @@ def valid_workplace_json(room_object):
     :param room_object:
     :return: Dict
     """
-    room = str(room_object.id)
+    room = room_object.id
     in_room_id = 1
     equipment = ["1", "2", "5", "6"]
     maintenance_availebility = True
@@ -47,6 +47,15 @@ def valid_workplace_querydict(valid_workplace_json):
 def workplace_object(valid_workplace_json):
     """
     This fixture creates a workplace object.
-    :return: Building
+    :return: Workplace
     """
-    return Workplace.objects.create(**valid_workplace_json)
+    return Workplace.objects.create(
+        room=Room.objects.get(id=valid_workplace_json["room"]),
+        in_room_id=valid_workplace_json["in_room_id"],
+        equipment=valid_workplace_json["equipment"],
+        maintenance_availebility=valid_workplace_json[
+            "maintenance_availebility"
+        ],
+        maintenance_status=valid_workplace_json["maintenance_status"],
+        notification=valid_workplace_json["notification"],
+    )

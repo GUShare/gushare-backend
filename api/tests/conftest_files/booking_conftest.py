@@ -5,7 +5,7 @@ from django.conf import settings
 from pytz import timezone
 from rest_framework.request import QueryDict
 
-from api.models import Booking
+from api.models import Booking, Workplace
 
 tz = timezone(settings.TIME_ZONE)
 
@@ -19,10 +19,10 @@ def valid_booking_json(workplace_object, user_object):
     :return: Dict
     """
     workplaces = [str(workplace_object.id)]
-    user = str(user_object.id)
-    started = datetime.datetime(2023, 1, 29, 14).astimezone(tz).isoformat()
-    stopped = datetime.datetime(2023, 1, 29, 16).astimezone(tz).isoformat()
-    email_others = ["test1@test.de", "test2@test.at"]
+    user = user_object.id
+    started = datetime.datetime(2023, 1, 31, 14).astimezone(tz).isoformat()
+    stopped = datetime.datetime(2023, 1, 31, 16).astimezone(tz).isoformat()
+    email_others = ["testing1@test.de", "testing2@test.at"]
     confirmed_at = (
         datetime.datetime(2023, 1, 29, 14, 5).astimezone(tz).isoformat()
     )
@@ -59,4 +59,12 @@ def booking_object(valid_booking_json):
     This fixture creates a workplace object.
     :return: Building
     """
-    return Booking.objects.create(**valid_booking_json)
+    return Booking.objects.create(
+        workplaces=[Workplace.objects.get(id=valid_booking_json["workplaces"])],
+        user=valid_booking_json["user"],
+        started=valid_booking_json["started"],
+        stopped=valid_booking_json["stopped"],
+        email_others=valid_booking_json["email_others"],
+        confirmed_at=valid_booking_json["confirmed_at"],
+        note=valid_booking_json["note"],
+    )

@@ -1,7 +1,45 @@
 import pytest
 from django.urls import reverse
+from rest_framework.request import QueryDict
 
 from api.models import User
+
+
+@pytest.fixture
+def valid_user_json(workplace_object):
+    """
+    This fixture provides a valid (according to the BookingSerializer) JSON dictionary.
+    :param room_object:
+    :param room_object:
+    :return: Dict
+    """
+    email = "test0@test.com"
+    first_name = "Testfirstname"
+    last_name = "Testlastname"
+    password = "Test_password"
+    favorite_workplaces = [workplace_object.id]
+
+    data = {
+        "email": email,
+        "first_name": first_name,
+        "last_name": last_name,
+        "password": password,
+        "favorite_workplaces": favorite_workplaces,
+    }
+
+    return data
+
+
+@pytest.fixture
+def valid_user_querydict(valid_user_json):
+    """
+    This fixture creates a QueryDict out of the valid_user_json.
+    :param valid_user_json:
+    :return: QueryDict
+    """
+    qdict = QueryDict("", mutable=True)
+    qdict.update(valid_user_json)
+    return qdict
 
 
 @pytest.fixture
