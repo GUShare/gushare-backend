@@ -17,7 +17,7 @@ def valid_building_json():
     opening_hours = "wochentags von 08:00 bis 16:00 Uhr"
     address = "Am Testweg 42"
     maximum_attendee_capacity = 42
-    amenity_feature = ["1", "2"]
+    amenity_features = ["1", "2"]
 
     data = {
         "name": name,
@@ -27,7 +27,7 @@ def valid_building_json():
         "opening_hours": opening_hours,
         "address": address,
         "maximum_attendee_capacity": maximum_attendee_capacity,
-        "amenity_feature": amenity_feature,
+        "amenity_features": amenity_features,
     }
 
     return data

@@ -135,6 +135,9 @@ class TestUserFields:
     def test_model_has_onboarding_passed_field(self, user_model_class):
         assert hasattr(user_model_class, "onboarding_passed")
 
+    def test_model_has_favorite_workplaces_field(self, user_model_class):
+        assert hasattr(user_model_class, "favorite_workplaces")
+
     def test_field_type_id(self, user_model_class):
         assert isinstance(
             user_model_class._meta.get_field("id"), models.UUIDField
@@ -184,11 +187,23 @@ class TestUserFields:
             models.BooleanField,
         )
 
+    def test_field_type_favorite_workplaces(self, user_model_class):
+        assert isinstance(
+            user_model_class._meta.get_field("favorite_workplaces"),
+            models.ManyToManyField,
+        )
+
     def test_field_conf_id(self, user_model_class):
         field = user_model_class._meta.get_field("id")
         assert field.primary_key
         assert field.default == uuid.uuid4
         assert not field.editable
+
+    def test_field_conf_favorite_workplaces(
+        self, user_model_class, workplace_model_class
+    ):
+        field = user_model_class._meta.get_field("favorite_workplaces")
+        assert issubclass(field.remote_field.model, workplace_model_class)
 
 
 class TestBuildingFields:
@@ -233,8 +248,8 @@ class TestBuildingFields:
     ):
         assert hasattr(building_model_class, "maximum_attendee_capacity")
 
-    def test_model_has_amenity_feature_field(self, building_model_class):
-        assert hasattr(building_model_class, "amenity_feature")
+    def test_model_has_amenity_features_field(self, building_model_class):
+        assert hasattr(building_model_class, "amenity_features")
 
     def test_field_type_id(self, building_model_class):
         assert isinstance(
@@ -295,9 +310,9 @@ class TestBuildingFields:
             models.IntegerField,
         )
 
-    def test_field_type_amenity_feature(self, building_model_class):
+    def test_field_type_amenity_features(self, building_model_class):
         assert isinstance(
-            building_model_class._meta.get_field("amenity_feature"), ArrayField
+            building_model_class._meta.get_field("amenity_features"), ArrayField
         )
 
     def test_field_conf_id(self, building_model_class):
@@ -420,9 +435,6 @@ class TestWorkplaceFields:
     def test_model_has_room_field(self, workplace_model_class):
         assert hasattr(workplace_model_class, "room")
 
-    def test_model_has_favorite_workplace_field(self, workplace_model_class):
-        assert hasattr(workplace_model_class, "favorite_workplace")
-
     def test_model_has_in_room_id_field(self, workplace_model_class):
         assert hasattr(workplace_model_class, "in_room_id")
 
@@ -448,12 +460,6 @@ class TestWorkplaceFields:
     def test_field_type_room(self, workplace_model_class):
         assert isinstance(
             workplace_model_class._meta.get_field("room"), models.ForeignKey
-        )
-
-    def test_field_type_favorite_workplace(self, workplace_model_class):
-        assert isinstance(
-            workplace_model_class._meta.get_field("favorite_workplace"),
-            models.ManyToManyField,
         )
 
     def test_field_type_in_room_id(self, workplace_model_class):
@@ -494,12 +500,6 @@ class TestWorkplaceFields:
     def test_field_conf_room(self, workplace_model_class, room_model_class):
         field = workplace_model_class._meta.get_field("room")
         assert issubclass(field.remote_field.model, room_model_class)
-
-    def test_field_conf_favorite_workplace(
-        self, workplace_model_class, user_model_class
-    ):
-        field = workplace_model_class._meta.get_field("favorite_workplace")
-        assert issubclass(field.remote_field.model, user_model_class)
 
 
 class TestBookingFields:

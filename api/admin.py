@@ -15,6 +15,7 @@ class UserAdmin(BaseUserAdmin):
         "last_name",
         "date_joined",
         "modified_at",
+        "link_workplaces",
     )
     fieldsets = BaseUserAdmin.fieldsets
     fieldsets[1][1]["fields"] += (
@@ -41,7 +42,7 @@ class BuildingAdmin(admin.ModelAdmin):
         "address",
         "map",
         "maximum_attendee_capacity",
-        "amenity_feature",
+        "amenity_features",
     )
     list_per_page = 10
     ordering = ("name",)
@@ -112,7 +113,6 @@ admin.site.register(Workplace, WorkplaceAdmin)
 class BookingAdmin(admin.ModelAdmin):
     list_display = (
         "id",
-        "link_workplaces",
         "started",
         "stopped",
         "email_others",
