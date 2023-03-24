@@ -1,8 +1,13 @@
 from django.shortcuts import render
 from rest_framework import mixins, serializers, viewsets
 
-from api.models import Building, Room, Workplace, Booking
-from api.serializers import BuildingSerializer, RoomSerializer, WorkplaceSerializer, BookingSerializer
+from api.models import Booking, Building, Room, Workplace
+from api.serializers import (
+    BookingSerializer,
+    BuildingSerializer,
+    RoomSerializer,
+    WorkplaceSerializer,
+)
 
 
 class BuildingViewSet(viewsets.ModelViewSet):
@@ -31,4 +36,3 @@ class BookingViewSet(viewsets.ModelViewSet):
     serializer_class = BookingSerializer
 
     name = "bookings"
-
