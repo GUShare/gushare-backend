@@ -4,7 +4,6 @@ import pytest
 from django.conf import settings
 from pytz import timezone
 from rest_framework.request import QueryDict
-
 from api.models import Booking, Workplace
 
 tz = timezone(settings.TIME_ZONE)
@@ -14,11 +13,11 @@ tz = timezone(settings.TIME_ZONE)
 def valid_booking_json(workplace_object, user_object):
     """
     This fixture provides a valid (according to the BookingSerializer) JSON dictionary.
-    :param room_object:
-    :param room_object:
+    :param workplace_object:
+    :param user_object:
     :return: Dict
     """
-    workplaces = [str(workplace_object.id)]
+    workplaces = [workplace_object.id]
     user = user_object.id
     started = datetime.datetime(2023, 1, 31, 14).astimezone(tz).isoformat()
     stopped = datetime.datetime(2023, 1, 31, 16).astimezone(tz).isoformat()

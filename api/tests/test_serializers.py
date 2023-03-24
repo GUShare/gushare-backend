@@ -78,16 +78,16 @@ class TestBookingSerializerValidation:
 
     @pytest.mark.django_db
     def test_validate_correct_data(
-        self, valid_booking_querydict, plain_request_object
+        self, valid_booking_json, plain_request_object
     ):
         """
         The BookingSerializer is tested if a valid JSON passes validation.
-        :param valid_workplace_querydict:
+        :param valid_booking_json:
         :param plain_request_object:
         :return:
         """
         BookingSerializer(
-            data=valid_booking_querydict,
+            data=valid_booking_json,
             context={"request": plain_request_object},
         ).is_valid(raise_exception=True)
 

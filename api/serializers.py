@@ -110,8 +110,8 @@ class BookingSerializer(serializers.ModelSerializer):
             if Booking.objects.filter(
                 started__lte=started,
                 stopped__gt=started,
-                workplaces__contains=[workplace],
-            ).exist():
+                workplaces__in=[workplace],
+            ).exists():
                 raise serializers.ValidationError(
                     _(
                         f"The started date is in the time of an already existing booking for the {workplace.in_room_id} in room {workplace.room.name} "
@@ -120,8 +120,8 @@ class BookingSerializer(serializers.ModelSerializer):
             if Booking.objects.filter(
                 started__lte=stopped,
                 stopped__gt=stopped,
-                workplaces__contains=[workplace],
-            ).exist():
+                workplaces__in=[workplace],
+            ).exists():
                 raise serializers.ValidationError(
                     _(
                         f"The stopped date is in the time of an already existing booking for the {workplace.in_room_id} in room {workplace.room.name} "
@@ -140,3 +140,5 @@ class BookingSerializer(serializers.ModelSerializer):
                     )
 
         # todo: Validate that a user have no other bookings in this time in the same Room-Type
+
+        return data
