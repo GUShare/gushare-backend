@@ -4,6 +4,7 @@ import pytest
 from django.conf import settings
 from pytz import timezone
 from rest_framework.request import QueryDict
+
 from api.models import Booking, Workplace
 
 tz = timezone(settings.TIME_ZONE)
