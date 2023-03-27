@@ -86,10 +86,12 @@ class BookingSerializer(serializers.ModelSerializer):
         started = data.get("started")
         stopped = data.get("stopped")
         workplaces = data.get("workplaces")
+        uuid = None
 
         if self.instance and (
             self.partial or self.context["request"].method == "PUT"
         ):
+            uuid = self.instance.id
             started = data.get("started", self.instance.started)
             stopped = data.get("stopped", self.instance.stopped)
 
@@ -139,6 +141,32 @@ class BookingSerializer(serializers.ModelSerializer):
                         )
                     )
 
-        # todo: Validate that a user have no other bookings in this time in the same Room-Type
+        # Validate that a user have no other bookings in this time in the same Room-Type
+        this_day_bookings = Booking.objects.filter(
+            started__date=started.date(), user=user
+        ).exclude(id=uuid)
+        if len(this_day_bookings) > 0:
+            this_booking_workplace_room = Room.objects.filter(
+                id=Workplace.objects.filter(id=workplaces[0]).id
+            )
+            for booking in this_day_bookings:
+                if (
+                    Room.objects.filter(
+                        id=Workplace.objects.filter(id=booking.workplaces[0]).id
+                    ).type
+                    != this_booking_workplace_room.type
+                ):
+                    if booking.started < started < booking.stopped:
+                        raise serializers.ValidationError(
+                            _(
+                                "The started date is within an already existing booking of this user with equal room types."
+                            )
+                        )
+                    if booking.started < stopped < booking.stopped:
+                        raise serializers.ValidationError(
+                            _(
+                                "The stoped date is within an already existing booking of this user with equal room types."
+                            )
+                        )
 
         return data
