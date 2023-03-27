@@ -61,6 +61,7 @@ def room_object(valid_room_json):
         maintenance_status=valid_room_json["maintenance_status"],
     )
 
+
 @pytest.fixture
 def valid_room2_json(building_object):
     """

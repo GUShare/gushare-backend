@@ -100,19 +100,25 @@ def stopped_before_started_json(valid_booking_json):
 
 
 @pytest.fixture
-def workplaces_in_two_different_rooms_booking_json(valid_booking_json, room2_workplace1_object):
+def workplaces_in_two_different_rooms_booking_json(
+    valid_booking_json, room2_workplace1_object
+):
     valid_booking_json["workplaces"].append(room2_workplace1_object.id)
     return valid_booking_json
 
 
 @pytest.fixture
-def workplaces_not_all_in_room_booking_json(valid_booking_json, workplace2_object):
+def workplaces_not_all_in_room_booking_json(
+    valid_booking_json, workplace2_object
+):
     valid_booking_json["workplaces"].append(workplace2_object.id)
     return valid_booking_json
 
 
 @pytest.fixture
-def same_user_started_within_other_booking_json(valid_booking_json, room2_workplace1_object):
+def same_user_started_within_other_booking_json(
+    valid_booking_json, room2_workplace1_object
+):
     valid_booking_json["workplaces"] = [room2_workplace1_object.id]
     valid_booking_json["started"] = (
         datetime.datetime(2023, 1, 30, 15).astimezone(tz).isoformat()
@@ -124,7 +130,9 @@ def same_user_started_within_other_booking_json(valid_booking_json, room2_workpl
 
 
 @pytest.fixture
-def same_user_stopped_within_other_booking_json(valid_booking_json, room2_workplace1_object):
+def same_user_stopped_within_other_booking_json(
+    valid_booking_json, room2_workplace1_object
+):
     valid_booking_json["workplaces"] = [room2_workplace1_object.id]
     valid_booking_json["started"] = (
         datetime.datetime(2023, 1, 30, 13).astimezone(tz).isoformat()
