@@ -172,40 +172,75 @@ class TestBookingSerializerValidation:
             ).is_valid(raise_exception=True)
 
     @pytest.mark.django_db
-    def test_workplaces_by_different_rooms(self):
+    def test_workplaces_by_different_rooms(
+        self,
+        workplaces_in_two_different_rooms_booking_json,
+        plain_request_object,
+    ):
         """
         The BookingSerializer is tested whether it raises a ValidationError
         if workplaces are not all in the same room.
         :return:
         """
-        pass
+        with pytest.raises(serializers.ValidationError):
+            BookingSerializer(
+                data=workplaces_in_two_different_rooms_booking_json,
+                context={"request": plain_request_object},
+            ).is_valid(raise_exception=True)
 
     @pytest.mark.django_db
-    def test_not_all_workplaces_by_same_rooms(self):
+    def test_not_all_workplaces_by_same_rooms(
+        self,
+        workplaces_not_all_in_room_booking_json,
+        workplace3_object,
+        plain_request_object,
+    ):
         """
         The BookingSerializer is tested whether it raises a ValidationError
         if booking includes more than 1 workplace but not all workplaces of a room.
         :return:
         """
-        pass
+        with pytest.raises(serializers.ValidationError):
+            BookingSerializer(
+                data=workplaces_not_all_in_room_booking_json,
+                context={"request": plain_request_object},
+            ).is_valid(raise_exception=True)
 
     @pytest.mark.django_db
-    def test_started_within_an_other_booking_of_user(self):
+    def test_started_within_an_other_booking_of_user(
+        self,
+        booking_object,
+        same_user_started_within_other_booking_json,
+        plain_request_object,
+    ):
         """
         The BookingSerializer is tested whether it raises a ValidationError
         if started is within a booking of the same user.
         :return:
         """
-        pass
+        with pytest.raises(serializers.ValidationError):
+            BookingSerializer(
+                data=same_user_started_within_other_booking_json,
+                context={"request": plain_request_object},
+            ).is_valid(raise_exception=True)
 
     @pytest.mark.django_db
-    def test_stopped_within_an_other_booking_of_user(self):
+    def test_stopped_within_an_other_booking_of_user(
+        self,
+        booking_object,
+        same_user_stopped_within_other_booking_json,
+        plain_request_object,
+    ):
         """
         The BookingSerializer is tested whether it raises a ValidationError
         if stopped is within a booking of the same user.
         :return:
         """
-        pass
+        with pytest.raises(serializers.ValidationError):
+            BookingSerializer(
+                data=same_user_stopped_within_other_booking_json,
+                context={"request": plain_request_object},
+            ).is_valid(raise_exception=True)
 
 
 class TestUserSerializerValidation:

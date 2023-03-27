@@ -59,3 +59,56 @@ def workplace_object(valid_workplace_json):
         maintenance_status=valid_workplace_json["maintenance_status"],
         notification=valid_workplace_json["notification"],
     )
+
+
+@pytest.fixture
+def workplace2_object(valid_workplace_json):
+    """
+    This fixture creates a workplace object.
+    :return: Workplace
+    """
+    valid_workplace_json["in_room_id"] = 2
+    return Workplace.objects.create(
+        room=Room.objects.get(id=valid_workplace_json["room"]),
+        in_room_id=valid_workplace_json["in_room_id"],
+        equipment=valid_workplace_json["equipment"],
+        maintenance_availebility=valid_workplace_json[
+            "maintenance_availebility"
+        ],
+        maintenance_status=valid_workplace_json["maintenance_status"],
+        notification=valid_workplace_json["notification"],
+    )
+
+
+@pytest.fixture
+def workplace3_object(valid_workplace_json):
+    """
+    This fixture creates a workplace object.
+    :return: Workplace
+    """
+    valid_workplace_json["in_room_id"] = 3
+    return Workplace.objects.create(
+        room=Room.objects.get(id=valid_workplace_json["room"]),
+        in_room_id=valid_workplace_json["in_room_id"],
+        equipment=valid_workplace_json["equipment"],
+        maintenance_availebility=valid_workplace_json[
+            "maintenance_availebility"
+        ],
+        maintenance_status=valid_workplace_json["maintenance_status"],
+        notification=valid_workplace_json["notification"],
+    )
+
+
+@pytest.fixture
+def room2_workplace1_object(valid_workplace_json, room2_object):
+    valid_workplace_json["room"] = room2_object.id
+    return Workplace.objects.create(
+        room=Room.objects.get(id=valid_workplace_json["room"]),
+        in_room_id=valid_workplace_json["in_room_id"],
+        equipment=valid_workplace_json["equipment"],
+        maintenance_availebility=valid_workplace_json[
+            "maintenance_availebility"
+        ],
+        maintenance_status=valid_workplace_json["maintenance_status"],
+        notification=valid_workplace_json["notification"],
+    )

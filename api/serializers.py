@@ -130,9 +130,9 @@ class BookingSerializer(serializers.ModelSerializer):
 
         # Validate that if len(workplaces) > 1 all workplaces of this booking should be in one room
         if len(workplaces) > 1:
-            base_room = Room.objects.filter(id=workplaces[0].id)
+            base_room = Room.objects.filter(id=workplaces[0].room)
             for i in range(1, len(workplaces)):
-                if workplaces[i].id != base_room.id:
+                if workplaces[i].room != base_room.id:
                     raise serializers.ValidationError(
                         _(
                             "All Workplaces in a Room-Booking have to reference to the same Room."
