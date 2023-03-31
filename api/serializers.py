@@ -6,7 +6,7 @@ from rest_framework import serializers
 from api.models import Booking, Building, Room, User, Workplace
 
 
-class UserSerializer(serializers.Serializer):
+class UserSerializer(serializers.ModelSerializer):
     """
     Serializer only needed for GDPR-Export of User data.
     """
@@ -31,7 +31,7 @@ class UserSerializer(serializers.Serializer):
         ref_name = "user-gdpr-serializers"
 
 
-class DjoserUserSerializer(serializers.Serializer):
+class DjoserUserSerializer(serializers.ModelSerializer):
     class Meta:
         ref_name = "djoser-custom-serializer"
 
