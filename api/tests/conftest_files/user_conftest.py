@@ -13,7 +13,7 @@ def valid_user_json(workplace_object):
     :param room_object:
     :return: Dict
     """
-    email = "test0@test.com"
+    email = "test_0@test.com"
     first_name = "Testfirstname"
     last_name = "Testlastname"
     password = "Test_password"

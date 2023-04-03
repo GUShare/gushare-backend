@@ -68,7 +68,7 @@ class TestBuildingAPiEndpoint:
         """
 
         response = client.put(
-            path="http://localhost:8000/contracts/",
+            path="http://localhost:8000/buildings/",
             data=json.dumps(valid_building_json),
             content_type="application/json",
         )
@@ -77,7 +77,9 @@ class TestBuildingAPiEndpoint:
 
 class TestDjoserCustomizing:
     @pytest.mark.django_db
-    def test_delete_user_custom_serializer(self, user_object, user_object_jwt, client):
+    def test_delete_user_custom_serializer(
+        self, user_object, user_object_jwt, client
+    ):
         """
         Test if the user-delete view works with the specified custom UserSerializer.
         :param user_object:
@@ -85,8 +87,17 @@ class TestDjoserCustomizing:
         :param client:
         :return:
         """
-        client.credentials(HTTP_AUTHORIZATION="Bearer {}".format(user_object_jwt))
-        response = client.delete(path=reverse("user-me"))
+        client.credentials(
+            HTTP_AUTHORIZATION="Bearer {}".format(user_object_jwt)
+        )
+        response = client.delete(
+            path=reverse("user-me"),
+            data={
+                "email": user_object.email,
+                "first_name": user_object.first_name,
+                "last_name": user_object.last_name,
+            },
+        )
         assert response.status_code == 204
         assert not User.objects.filter(id=user_object.id).exists()
 
@@ -101,7 +112,9 @@ class TestDjoserCustomizing:
         :param client:
         :return:
         """
-        client.credentials(HTTP_AUTHORIZATION="Bearer {}".format(user_object_jwt))
+        client.credentials(
+            HTTP_AUTHORIZATION="Bearer {}".format(user_object_jwt)
+        )
         put_data = user_object_json
         put_data["language"] = "de"
         response = client.put(
@@ -113,7 +126,9 @@ class TestDjoserCustomizing:
         assert User.objects.get(id=user_object.id).language == "de"
 
     @pytest.mark.django_db
-    def test_patch_user_custom_serializer(self, user_object, user_object_jwt, client):
+    def test_patch_user_custom_serializer(
+        self, user_object, user_object_jwt, client
+    ):
         """
         Test if the user/me/ PATCH view works with the specified custom UserSerializer.
         :param user_object:
@@ -121,7 +136,9 @@ class TestDjoserCustomizing:
         :param client:
         :return:
         """
-        client.credentials(HTTP_AUTHORIZATION="Bearer {}".format(user_object_jwt))
+        client.credentials(
+            HTTP_AUTHORIZATION="Bearer {}".format(user_object_jwt)
+        )
         put_data = {"language": "de"}
         response = client.patch(
             path=reverse("user-me"),
