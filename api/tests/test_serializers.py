@@ -24,16 +24,16 @@ class TestBuildingSerializerValidation:
 
     @pytest.mark.django_db
     def test_validate_correct_data(
-        self, valid_building_querydict, plain_request_object
+        self, valid_building_json, plain_request_object
     ):
         """
         The BuildingSerializer is tested if a valid JSON passes validation.
-        :param valid_building_querydict:
+        :param valid_building_json:
         :param plain_request_object:
         :return:
         """
         BuildingSerializer(
-            data=valid_building_querydict,
+            data=valid_building_json,
             context={"request": plain_request_object},
         ).is_valid(raise_exception=True)
 
@@ -45,16 +45,16 @@ class TestRoomSerializerValidation:
 
     @pytest.mark.django_db
     def test_validate_correct_data(
-        self, valid_room_querydict, plain_request_object
+        self, valid_room_json, plain_request_object
     ):
         """
         The RoomSerializer is tested if a valid JSON passes validation.
-        :param valid_room_querydict:
+        :param valid_room_json:
         :param plain_request_object:
         :return:
         """
         RoomSerializer(
-            data=valid_room_querydict, context={"request": plain_request_object}
+            data=valid_room_json, context={"request": plain_request_object}
         ).is_valid(raise_exception=True)
 
 
@@ -65,16 +65,16 @@ class TestWorkplaceSerializerValidation:
 
     @pytest.mark.django_db
     def test_validate_correct_data(
-        self, valid_workplace_querydict, plain_request_object
+        self, valid_workplace_json, plain_request_object
     ):
         """
         The WorkplaceSerializer is tested if a valid JSON passes validation.
-        :param valid_workplace_querydict:
+        :param valid_workplace_json:
         :param plain_request_object:
         :return:
         """
         WorkplaceSerializer(
-            data=valid_workplace_querydict,
+            data=valid_workplace_json,
             context={"request": plain_request_object},
         ).is_valid(raise_exception=True)
 
@@ -250,15 +250,15 @@ class TestUserSerializerValidation:
 
     @pytest.mark.django_db
     def test_validate_correct_data(
-        self, valid_user_querydict, plain_request_object
+        self, valid_user_json, plain_request_object
     ):
         """
         The USerSerializer is tested if a valid JSON passes validation.
-        :param valid_user_querydict:
+        :param valid_user_json:
         :param plain_request_object:
         :return:
         """
         UserSerializer(
-            data=valid_user_querydict,
+            data=valid_user_json,
             context={"request": plain_request_object},
         ).is_valid(raise_exception=True)
