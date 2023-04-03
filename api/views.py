@@ -2,7 +2,7 @@ from datetime import datetime
 
 from django.http import HttpResponse
 from drf_yasg.utils import swagger_auto_schema
-from rest_framework import mixins, serializers, viewsets
+from rest_framework import viewsets
 from rest_framework.renderers import JSONRenderer
 from rest_framework.response import Response
 from unidecode import unidecode
@@ -17,14 +17,14 @@ from api.serializers import (
 )
 
 
-class BuildingViewSet(viewsets.ModelViewSet):
+class BuildingViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Building.objects.all()
     serializer_class = BuildingSerializer
 
     name = "buildings"
 
 
-class RoomViewSet(viewsets.ModelViewSet):
+class RoomViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Room.objects.all()
     serializer_class = RoomSerializer
 
@@ -46,7 +46,7 @@ class RoomViewSet(viewsets.ModelViewSet):
         return Response(serializer.data)
 
 
-class WorkplaceViewSet(viewsets.ModelViewSet):
+class WorkplaceViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Workplace.objects.all()
     serializer_class = WorkplaceSerializer
 
