@@ -161,7 +161,7 @@ class User(AbstractUser):
     modified_at = models.DateTimeField(auto_now=True)
     dsgvo_accepted = models.BooleanField(default=False)
     onboarding_passed = models.BooleanField(default=False)
-    favorite_workplaces = models.ManyToManyField(to=Workplace)
+    favorite_workplaces = models.ManyToManyField(to=Workplace, blank=True)
 
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = ["first_name", "last_name"]
