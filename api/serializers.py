@@ -34,6 +34,7 @@ class UserSerializer(serializers.ModelSerializer):
 class DjoserUserSerializer(serializers.ModelSerializer):
     class Meta:
         ref_name = "djoser-custom-serializer"
+        model = User
 
         fields = [
             "id",
