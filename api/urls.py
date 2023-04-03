@@ -2,13 +2,12 @@ from django.urls import include, path
 from rest_framework.routers import DefaultRouter
 
 from api.views import (
+    BookingViewSet,
     BuildingViewSet,
+    GDPRExportView,
     RoomViewSet,
     WorkplaceViewSet,
-    BookingViewSet,
-    GDPRExportView,
 )
-
 
 app_name = "api"
 router = DefaultRouter()

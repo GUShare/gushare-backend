@@ -44,9 +44,7 @@ class TestRoomSerializerValidation:
     """
 
     @pytest.mark.django_db
-    def test_validate_correct_data(
-        self, valid_room_json, plain_request_object
-    ):
+    def test_validate_correct_data(self, valid_room_json, plain_request_object):
         """
         The RoomSerializer is tested if a valid JSON passes validation.
         :param valid_room_json:
@@ -249,9 +247,7 @@ class TestUserSerializerValidation:
     """
 
     @pytest.mark.django_db
-    def test_validate_correct_data(
-        self, valid_user_json, plain_request_object
-    ):
+    def test_validate_correct_data(self, valid_user_json, plain_request_object):
         """
         The USerSerializer is tested if a valid JSON passes validation.
         :param valid_user_json:

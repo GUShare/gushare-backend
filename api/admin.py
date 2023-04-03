@@ -28,7 +28,9 @@ class UserAdmin(BaseUserAdmin):
 
     def link_favorite_workplaces(self, obj):
         favorite_workplaces = obj.workplace
-        url = reverse("admin:api_workplace_change", args=[favorite_workplaces.pk])
+        url = reverse(
+            "admin:api_workplace_change", args=[favorite_workplaces.pk]
+        )
         return format_html('<a href="{}">{}</a>', url, favorite_workplaces.pk)
 
     link_favorite_workplaces.short_description = "favorite_workplaces"
