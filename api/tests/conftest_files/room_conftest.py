@@ -16,7 +16,7 @@ def valid_room_json(building_object):
     alternate_name = "TR"
     description = "This is a test Room"
     room_type = ["1"]
-    building = building_object.id
+    building = str(building_object.id)
     maintenance_availebility = True
     maintenance_status = "This room is available"
 
