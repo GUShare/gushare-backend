@@ -12,7 +12,7 @@ def valid_workplace_json(room_object):
     :param room_object:
     :return: Dict
     """
-    room = room_object.id
+    room = str(room_object.id)
     in_room_id = 1
     equipment = ["1", "2", "5", "6"]
     maintenance_availebility = True

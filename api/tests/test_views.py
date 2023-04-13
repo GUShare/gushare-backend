@@ -312,6 +312,161 @@ class TestRoomApiEndpoint:
     # todo: Test check booking endpoint
 
 
+class TestWorkplaceApiEndpoint:
+    @pytest.mark.django_db
+    def test_get_forbidden_without_jwt(self, client, workplace_object):
+        """
+        Test the detail Endpoint returns a 401 if no JWT is present.
+        :param client:
+        :param workplace_object:
+        :return:
+        """
+        response = client.get(
+            path=r"/workplaces/",
+            args=[workplace_object.id],
+            content_type="application/json",
+        )
+        assert response.status_code == 401
+
+    @pytest.mark.django_db
+    def test_list_forbidden_without_jwt(self, client):
+        """
+        Test the list endpoint returns a 401 if no JWT is present.
+        :param client:
+        :return:
+        """
+        response = client.get(
+            path="http://localhost:8000/workplaces/",
+            content_type="application/json",
+        )
+        assert response.status_code == 401
+
+    @pytest.mark.django_db
+    def test_create_forbidden_without_jwt(self, client, valid_workplace_json):
+        """
+        Test the create endpoint returns a 401 if no JWT is present.
+        :param client:
+        :param valid_workplace_json:
+        :return:
+        """
+        response = client.post(
+            path="http://localhost:8000/workplaces/",
+            data=json.dumps(valid_workplace_json),
+            content_type="application/json",
+        )
+        assert response.status_code == 401
+
+    @pytest.mark.django_db
+    def test_put_forbidden_without_jwt(self, client, valid_workplace_json):
+        """
+        Test the PUT endpoint returns 401 if no JWT is present.
+        :param client:
+        :param valid_workplace_json:
+        :return:
+        """
+
+        response = client.put(
+            path="http://localhost:8000/workplaces/",
+            data=json.dumps(valid_workplace_json),
+            content_type="application/json",
+        )
+        assert response.status_code == 401
+
+    @pytest.mark.django_db
+    def test_get_allowed(self, client, workplace_object, user_object_jwt):
+        """
+        Test the detail Endpoint returns a 200 if valid JWT is present.
+        :param client:
+        :param workplace_object:
+        :return:
+        """
+        client.credentials(
+            HTTP_AUTHORIZATION="Bearer {}".format(user_object_jwt)
+        )
+        response = client.get(
+            path=r"/workplaces/",
+            args=[workplace_object.id],
+            content_type="application/json",
+        )
+        assert response.status_code == 200
+
+    @pytest.mark.django_db
+    def test_list_allowed(self, client, user_object_jwt):
+        """
+        Test the list endpoint returns a 200 if valid JWT is present.
+        :param client:
+        :return:
+        """
+        client.credentials(
+            HTTP_AUTHORIZATION="Bearer {}".format(user_object_jwt)
+        )
+        response = client.get(
+            path="http://localhost:8000/workplaces/",
+            content_type="application/json",
+        )
+        assert response.status_code == 200
+
+    @pytest.mark.django_db
+    def test_put_not_allowed(
+        self, client, valid_workplace_json, user_object_jwt
+    ):
+        """
+        Test the PUT endpoint returns 405 if valid JWT is present.
+        :param client:
+        :param valid_workplace_json:
+        :return:
+        """
+        client.credentials(
+            HTTP_AUTHORIZATION="Bearer {}".format(user_object_jwt)
+        )
+        response = client.put(
+            path="http://localhost:8000/workplaces/",
+            data=json.dumps(valid_workplace_json),
+            content_type="application/json",
+        )
+        assert response.status_code == 405
+
+    @pytest.mark.django_db
+    def test_patch_not_allowed(
+        self, client, valid_workplace_json, user_object_jwt
+    ):
+        """
+        Test the PATCH endpoint returns 405 if valid JWT is present.
+        :param client:
+        :param valid_workplace_json:
+        :return:
+        """
+        client.credentials(
+            HTTP_AUTHORIZATION="Bearer {}".format(user_object_jwt)
+        )
+        response = client.patch(
+            path="http://localhost:8000/workplaces/",
+            data=json.dumps(valid_workplace_json),
+            content_type="application/json",
+        )
+        assert response.status_code == 405
+
+    @pytest.mark.django_db
+    def test_post_not_allowed(
+        self, client, valid_workplace_json, user_object_jwt
+    ):
+        """
+        Test the POST endpoint returns 405 if valid JWT is present.
+        :param client:
+        :param valid_workplace_json:
+        :return:
+        """
+        client.credentials(
+            HTTP_AUTHORIZATION="Bearer {}".format(user_object_jwt)
+        )
+        response = client.post(
+            path="http://localhost:8000/workplaces/",
+            data=json.dumps(valid_workplace_json),
+            content_type="application/json",
+        )
+        assert response.status_code == 405
+
+
 class TestDjoserCustomizing:
     @pytest.mark.django_db
     def test_delete_user_custom_serializer(
