@@ -15,11 +15,25 @@ class UserAdmin(BaseUserAdmin):
         "last_name",
         "date_joined",
         "modified_at",
+        "link_favorite_workplaces",
     )
     fieldsets = BaseUserAdmin.fieldsets
-    fieldsets[1][1]["fields"] += ("language", "dsgvo_accepted", "onboarding_passed")
+    fieldsets[1][1]["fields"] += (
+        "language",
+        "dsgvo_accepted",
+        "onboarding_passed",
+    )
     ordering = ("-date_joined",)
     readonly_fields = ("date_joined",)
+
+    def link_favorite_workplaces(self, obj):
+        favorite_workplaces = obj.workplace
+        url = reverse(
+            "admin:api_workplace_change", args=[favorite_workplaces.pk]
+        )
+        return format_html('<a href="{}">{}</a>', url, favorite_workplaces.pk)
+
+    link_favorite_workplaces.short_description = "favorite_workplaces"
 
 
 admin.site.register(User, UserAdmin)
@@ -37,7 +51,7 @@ class BuildingAdmin(admin.ModelAdmin):
         "address",
         "map",
         "maximum_attendee_capacity",
-        "amenity_feature",
+        "amenity_features",
     )
     list_per_page = 10
     ordering = ("name",)
@@ -82,7 +96,6 @@ class WorkplaceAdmin(admin.ModelAdmin):
         "maintenance_availebility",
         "maintenance_status",
         "notification",
-        "link_users",
     )
     list_per_page = 10
     ordering = ("room", "in_room_id")
@@ -94,13 +107,6 @@ class WorkplaceAdmin(admin.ModelAdmin):
 
     link_room.short_description = "room"
 
-    def link_users(self, obj):
-        users = obj.user
-        url = reverse("admin:api_building_change", args=[users.pk])
-        return format_html('<a href="{}">{}</a>', url, users.pk)
-
-    link_users.short_description = "favored_by"
-
 
 admin.site.register(Workplace, WorkplaceAdmin)
 
@@ -108,7 +114,6 @@ admin.site.register(Workplace, WorkplaceAdmin)
 class BookingAdmin(admin.ModelAdmin):
     list_display = (
         "id",
-        "link_workplaces",
         "started",
         "stopped",
         "email_others",
@@ -120,7 +125,7 @@ class BookingAdmin(admin.ModelAdmin):
 
     def link_workplaces(self, obj):
         workplaces = obj.workplace
-        url = reverse("admin:api_room_change", args=[workplaces.pk])
+        url = reverse("admin:api_workplace_change", args=[workplaces.pk])
         return format_html('<a href="{}">{}</a>', url, workplaces.pk)
 
     link_workplaces.short_description = "workplaces"
